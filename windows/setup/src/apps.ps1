@@ -1,36 +1,66 @@
-Import-Module "$env:TEMP/utils";
+Import-Module "$env:TEMP/utilities"
+[string] $labinNumber = $args[1]
 
-$console = create_console;
-
-$console.puts("Executando arquivo `"apps.ps1`":");
-
-$console.puts("  Utilizando dados salvos em cache...");
-$cache = create_cache_manager($env:TEMP);
-$cache.read();
-$data = $cache.get_data();
-$console.success("  Dados utilizados com sucesso!");
-
-$console.puts("  Baixando gerenciador de pacotes Chocolatey...");
-[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
-Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://community.chocolatey.org/install.ps1"));
-$console.success("  Chocolatey instalado com sucesso!")
-
-$console.puts("  Instalando aplicativos padrão...");
-choco.exe install winrar adobereader firefox cpu-z -yf --ignore-checksums | Out-Null;
-$console.success("  Aplicativos padrão instalados com sucesso!");
-
-$console.puts("  Instalando aplicativos específicos do laboratório $($data.laboratory_number)...");
-if ($data.laboratory_number -eq 2) {
-  # choco.exe install $app -yf --ignore-checksums | Out-Null;
+# ==================================================================> Installing
+function installChocolatey {
+  [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+  Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://community.chocolatey.org/install.ps1"))
 }
 
-if ($data.laboratory_number -eq 4) {
-  choco.exe install vscode git python sqlite -yf --ignore-checksums | Out-Null; # install Packet Tracer
+function installDefaultApps {
+  foreach ($app in @("winrar", "adobereader", "firefox", "cpu-z")) {
+    print("    $app...")
+    choco.exe install $app -yf --ignore-checksums | Out-Null
+  }
 }
 
-if ($data.laboratory_number -eq 5) {
-  choco.exe install  -yf --ignore-checksums | Out-Null; # install Firebird, Flamerobin
+function installDeveloperApps {
+  foreach ($app in @("git", "python", "sqlite", "vscode")) {
+    print("    $app...")
+    choco.exe install $app -yf --ignore-checksums | Out-Null
+  }
 }
-$console.success("  Aplicativos específicos do laboratório $($data.laboratory_number) instalados com sucesso!");
 
-$console.puts("Execução do arquivo `"apps.ps1`" finalizado!");
+function installApps {
+  print("  Chocolatey...")
+  installChocolatey
+
+  print("  Default apps:")
+  installDefaultApps
+
+  if (isDeveloperLabin($labinNumber)) {
+    print
+    print("  Developer apps:")
+    installDeveloperApps
+  }
+}
+
+# ================================================================> Uninstalling
+function uninstallWindowsDefaultApps {
+  foreach ($app in getWindowsDefaultApps) {
+    print("    $app...")
+    Get-AppxPackage -Name $app -AllUsers | Remove-AppxPackage -AllUsers
+    (Get-AppxProvisionedPackage -Online).Where( { $_.DisplayName -eq $app }) | Remove-AppxProvisionedPackage -Online
+  }
+}
+
+function uninstallOneDrive {
+  taskkill.exe /f /im "OneDrive.exe" | Out-Null
+  cmd.exe /c "$env:SystemRoot/SysWOW64/OneDriveSetup.exe" /uninstall | Out-Null
+}
+
+function uninstallApps {
+  print("  OneDrive...")
+  uninstallOneDrive
+
+  print("  Windows default apps:")
+  uninstallWindowsDefaultApps
+}
+
+# =====================================================================> Running
+print("> Installing Apps")
+installApps
+
+print
+print("> Uninstalling Apps")
+uninstallApps

@@ -1,31 +1,33 @@
-Import-Module "$env:TEMP/utils";
+Import-Module "$env:TEMP/utilities"
 
-$console = create_console;
+# ===================================================================> Functions
 
-$console.puts("Executando arquivo `"other.ps1`":");
+function createDefaultUser {
+  New-LocalUser -Name "Aluno" -NoPassword | Out-Null
+  Set-LocalUser -Name "Aluno" -UserMayChangePassword $false  -PasswordNeverExpires $true -AccountNeverExpires | Out-Null
+  Add-LocalGroupMember -SID "S-1-5-32-545" -Member "Aluno" | Out-Null
+}
 
-$console.puts("  Desabilitando pesquisa no bing...");
-Set-ItemProperty -Force -Type "DWord" -Value 0 -Name "BingSearchEnabled" "HKCU:/SOFTWARE/Microsoft/Windows/CurrentVersion/Search";
-$console.success("  Pesquisa no bing desabilitada com sucesso!");
+# =====================================================================> Running
+function configComputerOther {
+  Set-ItemProperty -Force -Type "DWord" -Value 0 -Name "BingSearchEnabled" "HKCU:/SOFTWARE/Microsoft/Windows/CurrentVersion/Search"
+  print("Disabled bing search on menu")
 
-$console.puts("  Configurando página de início do explorer...");
-Set-ItemProperty -Force -Type "DWord" -Value 1 -Name "LaunchTo" "HKCU:/SOFTWARE/Microsoft/Windows/CurrentVersion/Explorer/Advanced"
-$console.success("  Página de início do explorer configurada com sucesso!");
+  Set-ItemProperty -Force -Type "DWord" -Value 1 -Name "LaunchTo" "HKCU:/SOFTWARE/Microsoft/Windows/CurrentVersion/Explorer/Advanced"
+  print("Configured explorer launch page to 'This Computer' page")
 
-$console.puts("  Configurando página de acesso rápido do explorer...");
-Set-ItemProperty -Force -Type "DWord" -Value 0 -Name "ShowRecent" "HKCU:/SOFTWARE/Microsoft/Windows/CurrentVersion/Explorer"
-Set-ItemProperty -Force -Type "DWord" -Value 0 -Name "ShowFrequent" "HKCU:/SOFTWARE/Microsoft/Windows/CurrentVersion/Explorer"
-$console.success("  Página de acesso rápido do explorer configurada com sucesso!");
+  Set-ItemProperty -Force -Type "DWord" -Value 0 -Name "ShowRecent" "HKCU:/SOFTWARE/Microsoft/Windows/CurrentVersion/Explorer"
+  Set-ItemProperty -Force -Type "DWord" -Value 0 -Name "ShowFrequent" "HKCU:/SOFTWARE/Microsoft/Windows/CurrentVersion/Explorer"
+  print("Configured 'Quick Access' explorer page")
 
-$console.puts("  Desabilitando suspensão do computador...");
-powercfg.exe -change -monitor-timeout-ac 0
-powercfg.exe -change -standby-timeout-ac 0
-$console.success("  Suspensão do computador desabilitado com sucesso!");
+  powercfg.exe -change -monitor-timeout-ac 0
+  print("Disabled monitor sleeping timeout")
 
-$console.puts("  Criando usuário `"Aluno`"...");
-New-LocalUser -Name "Aluno" -NoPassword | Out-Null
-Set-LocalUser -Name "Aluno" -UserMayChangePassword $false  -PasswordNeverExpires $true -AccountNeverExpires | Out-Null
-Add-LocalGroupMember -SID "S-1-5-32-545" -Member "Aluno" | Out-Null
-$console.success("  Usuário `"Aluno`" criado com sucesso!");
+  powercfg.exe -change -standby-timeout-ac 0
+  print("Disabled computer sleeping timeout")
 
-$console.puts("Execução do arquivo `"other.ps1`" finalizado!");
+  createDefaultUser
+  print("Created default user")
+}
+
+configComputerOther
