@@ -10,8 +10,11 @@ computer laboratories.
 
 The content is as follows:
 
-- [**_`Windows`_**](./windows/)
-- [**_`Linux`_**](./linux/)
+- [**_`Lab01`_**](./src/lab01)
+- [**_`Lab02`_**](./src/lab02)
+- [**_`Lab03`_**](./src/lab03)
+- [**_`Lab04`_**](./src/lab04)
+- [**_`Lab05`_**](./src/lab05)
 
 _Related repositories_:
 
