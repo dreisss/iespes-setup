@@ -16,6 +16,13 @@ The content is as follows:
 - [**_`Lab04`_**](./src/lab04)
 - [**_`Lab05`_**](./src/lab05)
 
+Some useful links:
+
+- [**_`Ventoy`_**](https://github.com/ventoy/Ventoy/releases)
+- [**_`Windows 10 ISO`_**](https://www.microsoft.com/pt-br/software-download/windows10ISO)
+- [**_`Zorin OS ISO`_**](https://zorin.com/os/download/)
+- [**_`Windows Debloat`_**](https://github.com/LeDragoX/Win-Debloat-Tools)
+
 _Related repositories_:
 
 - [**_iespes repository_**]
