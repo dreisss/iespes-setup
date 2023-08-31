@@ -27,3 +27,12 @@ function setRegistryValue([string] $path, [string] $name, [string] $value, [stri
     printError("Failed to set registry value $name to $value on $path") "   "
   }
 }
+
+function isRunningAsAdmin {
+  $currentProcess = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
+  return $currentProcess.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+}
+
+function isNetworkAvailable {
+  return Test-Connection -Quiet "google.com.br"
+}
