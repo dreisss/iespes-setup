@@ -16,11 +16,11 @@ function formatNumber([string] $number) {
   return $number.PadLeft(2, "0")
 }
 
-function setRegistryValue([string] $path, [string] $name, [string] $value) {
+function setRegistryValue([string] $path, [string] $name, [string] $value, [string] $type = "DWord") {
   printInfo("Setting registry value $name to $value on $path") "   "
 
   try {
-    Set-ItemProperty -Force -Type "DWord" -Value "$value" -Name "$name" "$path"
+    Set-ItemProperty -Force -Type $type -Value $value -Name $name $path
     printSuccess("Registry value $name set to $value on $path.") "   "
   }
   catch {

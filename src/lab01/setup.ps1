@@ -1,1 +1,1 @@
-Import-Module "$PSScriptRoot/../lib/main"
+Import-Module "$PSScriptRoot/../lib/index"
