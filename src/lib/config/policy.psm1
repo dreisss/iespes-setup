@@ -1,4 +1,4 @@
-Import-Module "$PSScriptRoot/../lib/main"
+Import-Module "$PSScriptRoot/../utilities"
 
 function setNewGroupPolicy([string] $path, [string] $name, [string] $value) {
   printInfo("Setting new group policy $name to $value on $path")
