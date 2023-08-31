@@ -14,23 +14,19 @@ function installChocolatey {
   catch {
     printError "Failed to install Chocolatey."
   }
-
-  Write-Host ""
 }
 
 function installWinget {
-  printInfo "Installing winget..."
+  printInfo "Installing Winget..."
 
   try {
     Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe
 
-    printSuccess "winget installed."
+    printSuccess "Winget installed."
   }
   catch {
     printError "Failed to install winget."
   }
-
-  Write-Host ""
 }
 
 # ====> Other Apps
@@ -55,8 +51,6 @@ function installDefaultApps {
   }
 
   printSuccess "Default apps installed."
-
-  Write-Host ""
 }
 
 function installDeveloperApps {
@@ -67,6 +61,4 @@ function installDeveloperApps {
   }
 
   printSuccess "Developer apps installed."
-
-  Write-Host ""
 }

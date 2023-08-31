@@ -11,8 +11,6 @@ function optimizeComputer {
   setRegistryValue "HKLM:/SOFTWARE/Policies/Microsoft/Windows/AppPrivacy" "LetAppsRunInBackground" 2
 
   printSuccess "Computer optimized."
-
-  Write-Host ""
 }
 
 function setPreferences {
@@ -34,6 +32,4 @@ function setPreferences {
   }
 
   printSuccess "Preferences configured."
-
-  Write-Host ""
 }
