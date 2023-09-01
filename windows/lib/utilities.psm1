@@ -11,6 +11,14 @@ function printError([string] $text, [string] $space = "") {
   Write-Host "$space[-] $text" -ForegroundColor "Red"
 }
 
+function printOperation([string] $number, [string] $text) {
+  Write-Host "   [$number] $text" -ForegroundColor "Cyan"
+}
+
+function readValue([string] $text, [string] $space = "") {
+  return Read-Host "$space[?] $text"
+}
+
 # =============================================================================> Other
 function isRunningAsAdmin {
   $currentProcess = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
