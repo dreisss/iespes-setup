@@ -1,7 +1,10 @@
 Import-Module "$PSScriptRoot/../utilities"
 
-function renameComputer([int] $laboratoryNumber, [int] $computerNumber) {
+function renameComputer {
   printInfo "Renaming computer..."
+
+  $laboratoryNumber = readValue "Labortory number" "   "
+  $computerNumber = readValue "Computer number" "   "
 
   try {
     $newName = "LAB$(formatNumber($laboratoryNumber))-PC$(formatNumber($computerNumber))"

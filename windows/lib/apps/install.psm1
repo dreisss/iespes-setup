@@ -46,7 +46,7 @@ function installApp([string] $app) {
 function installDefaultApps {
   printInfo "Installing default apps..."
 
-  foreach ($app in @("firefox", "winrar", "adobereader", "cpu-z", "vlc")) {
+  foreach ($app in @("firefox", "winrar", "adobereader", "vlc", "cpu-z")) {
     installApp $app
   }
 

@@ -1,32 +1,11 @@
 Import-Module "$PSScriptRoot/lib/index"
 
-if (-not(isRunningAsAdmin)) {
-  Start-Process powershell -Verb "RunAs" -ArgumentList ('-NoExit -NoProfile -ExecutionPolicy Bypass File "{0}" -Elevated' -f ($MyInvocation.MyCommand.Definition))
-  exit
-}
+# if (-not(isRunningAsAdmin)) {
+#   Start-Process powershell -Verb "RunAs" -ArgumentList ('-NoExit -NoProfile -ExecutionPolicy Bypass File "{0}" -Elevated' -f ($MyInvocation.MyCommand.Definition))
+#   exit
+# }
 
-$predefinedOperations = @(
-  @{
-    "number"   = 0
-    "name"     = "Initial setup"
-    "function" = {}
-  },
-  @{
-    "number"   = 1
-    "name"     = "Choose a specific function"
-    "function" = {}
-  },
-  @{
-    "number"   = 2
-    "name"     = "Stop running script"
-    "function" = {
-      Write-Host ""
-      printInfo "Exiting..."
-      Write-Host ""
-      exit
-    }
-  }
-)
+$predefinedOperations = getPredefinedOperations
 
 while ($true) {
   printInfo  "Choose an operation to perform:"
@@ -41,7 +20,9 @@ while ($true) {
     printError "Invalid operation number. Try again..."
   }
   else {
+    Write-Host ""
     $predefinedOperations[$requestedOperation].function.Invoke()
+    Write-Host ""
   }
 
   Write-Host ""
