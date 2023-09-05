@@ -3,7 +3,7 @@ Import-Module "$PSScriptRoot/../utilities"
 function renameComputer {
   printInfo "Renaming computer..."
 
-  $laboratoryNumber = readValue "Labortory number" "   "
+  $laboratoryNumber = readValue "Laboratory number" "   "
   $computerNumber = readValue "Computer number" "   "
 
   try {

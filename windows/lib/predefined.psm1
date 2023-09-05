@@ -2,6 +2,15 @@ function getPredefinedOperations {
   return @(
     @{
       "number"   = 0
+      "name"     = "Stop running script"
+      "function" = {
+        printInfo "Exiting..."
+        Write-Host ""
+        exit
+      }
+    },
+    @{
+      "number"   = 1
       "name"     = "Initial setup"
       "function" = {
         tryNetworkConnection
@@ -16,6 +25,7 @@ function getPredefinedOperations {
 
         optimizeComputer
         setPreferences
+        setGroupPolicies
 
         installChocolatey
         installWinget
@@ -23,12 +33,22 @@ function getPredefinedOperations {
       }
     },
     @{
-      "number"   = 1
-      "name"     = "Stop running script"
+      "number"   = 2
+      "name"     = "Default user setup"
       "function" = {
-        printInfo "Exiting..."
-        Write-Host ""
-        exit
+        setAccentColor
+        setThemeColors
+
+        optimizeComputer
+        setPreferences
       }
-    })
+    },
+    @{
+      "number"   = 3
+      "name"     = "Update registry values"
+      "function" = {
+        printInfo "Updating user registry values..."
+      }
+    }
+  )
 }

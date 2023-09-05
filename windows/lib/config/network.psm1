@@ -21,7 +21,7 @@ function configureNotWiredNetwork {
   printInfo "Configuring not wired network..."
 
   try {
-    netsh.exe wlan connect "WIFI ALUNOS IESPES 5G"
+    netsh.exe wlan connect "WIFI ALUNOS IESPES"
 
     printSuccess "Not wired network configured."
   }
@@ -33,13 +33,13 @@ function configureNotWiredNetwork {
 function configureNetwork {
   printInfo "Configuring network..."
 
-  $ip = readValue "IP (Empty to Wired Network)" "   "
+  $ip = readValue "IP (Empty to not wired network)" "   "
 
   if ($ip -eq "") {
     configureNotWiredNetwork
   }
   else {
-    configureWiredNetwork $ip 
+    configureWiredNetwork $ip
   }
 
   printSuccess "Network configured."

@@ -44,3 +44,7 @@ function setRegistryValue([string] $path, [string] $name, [string] $value, [stri
     printError "Failed to set registry value $name to $value on $path" "   "
   }
 }
+
+function updateUserRegistries {
+  rundll32.exe user32.dll,UpdatePerUserSystemParameters
+}

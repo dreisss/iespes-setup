@@ -22,7 +22,6 @@ while ($true) {
   else {
     Write-Host ""
     $predefinedOperations[$requestedOperation].function.Invoke()
-    Write-Host ""
   }
 
   Write-Host ""
