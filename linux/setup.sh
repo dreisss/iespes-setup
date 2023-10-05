@@ -2,23 +2,23 @@
 
 networkInterface="$(nmcli c | awk -F '  ' '{ if (NR==2) print $1 }')"
 
-if [ $(nmcli d | grep "ethernet  conectado" | wc -l) != 1 ]
-then
-  nmcli c m "$networkInterface" ipv4.addresses "192.168.$1.$(($2 + 1))/24"
-  nmcli c m "$networkInterface" ipv4.gateway "192.168.$1.1"
-  nmcli c m "$networkInterface" ipv4.dns "8.8.8.8"
-  nmcli c m "$networkInterface" ipv4.method "manual"
-  nmcli c u "$networkInterface"
+if [ $(nmcli d | grep "ethernet  conectado" | wc -l) != 1 ]; then
+	nmcli c m "$networkInterface" ipv4.addresses "192.168.$1.$(($2 + 1))/24"
+	nmcli c m "$networkInterface" ipv4.gateway "192.168.$1.1"
+	nmcli c m "$networkInterface" ipv4.dns "8.8.8.8"
+	nmcli c m "$networkInterface" ipv4.method "manual"
+	nmcli c u "$networkInterface"
 fi
 
-if [ $(cat /etc/passwd | grep "aluno" | wc -l) != 1 ]
-then
-  sudo adduser aluno
-  sudo passwd -d aluno
+if [ $(cat /etc/passwd | grep "aluno" | wc -l) != 1 ]; then
+	sudo adduser --disabled-password --gecos "" aluno
+	sudo passwd -d aluno
 fi
+
+sleep 5
 
 sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove -y
-sudo apt install build-essential net-tools -y
+sudo apt install build-essential net-tools cpu-x -y
 
 sudo wget -O /usr/share/backgrounds/wallpaper.png https://raw.githubusercontent.com/dreisss/iespes-extra/main/design/wallpapers/wallpaper.png
 
