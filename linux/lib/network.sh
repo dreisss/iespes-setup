@@ -16,7 +16,7 @@ fi
 
 sleep 5
 
-if [ $(nmcli d | grep "conectado" | wc -l) != 1]; then
+if [ $(nmcli d | grep "conectado" | wc -l) != 1 ]; then
 	echo "Failed to connect to internet."
 	exit
 fi
