@@ -31,6 +31,12 @@ sudo apt install build-essential net-tools cpu-x -y
 
 if [ $1 = 3 ]; then
 	sudo apt install vim virtualbox -y
+
+	wget -O ~/Downloads/packet-tracer-7.0.0.tar.gz https://raw.githubusercontent.com/dreisss/iespes-setup/linux/other/packet-tracer-7.0.0.tar.gz
+	tar -xf ~/Downloads/packet-tracer-7.0.0.tar.gz -C ~/Downloads
+	~/Downloads/PacketTracer70/install
+
+	rm -rf ~/Downloads/{packet-tracer-7.0.0.tar.gz,PackertTracer70}
 fi
 
 sudo wget -O /usr/share/backgrounds/wallpaper.png https://raw.githubusercontent.com/dreisss/iespes-extra/main/design/wallpapers/wallpaper.png
