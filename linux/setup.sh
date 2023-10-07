@@ -4,7 +4,9 @@
 ./lib/default_user.sh
 
 sudo apt update -y && sudo apt upgrade -y && sudo apt autoremove -y
-sudo apt install build-essential net-tools cpu-x vim -y
+sudo apt install build-essential net-tools vim cpu-x -y
+
+./lib/firefox.sh
 
 if [ $1 = 3 ]; then
 	sudo apt install virtualbox -y
