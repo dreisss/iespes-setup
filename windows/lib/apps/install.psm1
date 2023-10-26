@@ -62,3 +62,13 @@ function installDeveloperApps {
 
   printSuccess "Developer apps installed."
 }
+
+function installOtherApps {
+  printInfo "Installing other apps..."
+
+  foreach ($app in @("radiant")) {
+    installApp $app
+  }
+
+  printSuccess "Other apps installed."
+}
