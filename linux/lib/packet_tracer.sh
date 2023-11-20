@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # TODO: fix installation
-# wget -O ~/Downloads/packet-tracer-7.0.0.tar.gz https://github.com/dreisss/iespes-setup/raw/main/linux/other/packet-tracer-7.0.0.tar.gz
+wget -O ~/Downloads/packet-tracer-6.3.gz https://github.com/dreisss/iespes-setup/raw/main/linux/other/packet-tracer-6.3.gz
+cd ~/Downloads && tar -xf packet-tracer-6.3.gz && cd PacketTracer63 && ./install && cd
+
 # tar -xf ~/Downloads/packet-tracer-7.0.0.tar.gz -C ~/Downloads
 # cd ~/Downloads/PacketTracer70 && sudo ./install && cd
 
